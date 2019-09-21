@@ -35,10 +35,10 @@ std::string HASH::mul_bites() {
 
 std::string HASH::string_to_hex(std::string bin) {
     std::string res = "";
-    std::stringstream hex;
     for (int i = 0; i < 512; i += 64) {
+        std::stringstream hex;
         std::bitset<64> set(bin.substr(i, 64));
-        hex << std::hex << set.to_ulong() << std::endl;
+        hex << std::hex << set.to_ulong();
         res += hex.str();
     }
     return res;

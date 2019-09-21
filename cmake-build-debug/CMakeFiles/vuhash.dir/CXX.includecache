@@ -6,30 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/Users/dqmis/Documents/University/vuhash/./HASH/HASH.h
-string
--
-vector
--
-cmath
--
-bitset
--
-iostream
--
-cstdlib
--
-array
--
-algorithm
--
-functional
--
-sstream
--
-iomanip
--
-
 /Users/dqmis/Documents/University/vuhash/HASH/HASH.cpp
 HASH.h
 /Users/dqmis/Documents/University/vuhash/HASH/HASH.h
@@ -57,10 +33,4 @@ sstream
 -
 iomanip
 -
-
-/Users/dqmis/Documents/University/vuhash/main.cpp
-iostream
--
-./HASH/HASH.h
-/Users/dqmis/Documents/University/vuhash/./HASH/HASH.h
 
