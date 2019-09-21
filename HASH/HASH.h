@@ -22,6 +22,7 @@ private:
     void padding(std::vector<int>& bin);
     void string_to_binary(std::string st_val);
     void init_key(std::vector<int>& key);
+    std::string string_to_hex(std::string bin);
     std::string mul_bites();
 
     std::vector<std::vector<int>> keys;
@@ -38,9 +39,7 @@ public:
         if (bin_val.size() < 512)
             padding(bin_val);
         else if (bin_val.size() > 512) return -1;
-
-        std::string b = mul_bites();
-        std::bitset<
+        std::cout << string_to_hex(mul_bites()) << std::endl;
         return 0;
     }
 };

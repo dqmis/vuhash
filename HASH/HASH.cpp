@@ -33,6 +33,17 @@ std::string HASH::mul_bites() {
     return result.str();
 }
 
+std::string HASH::string_to_hex(std::string bin) {
+    std::string res = "";
+    std::stringstream hex;
+    for (int i = 0; i < 512; i += 64) {
+        std::bitset<64> set(bin.substr(i, 64));
+        hex << std::hex << set.to_ulong() << std::endl;
+        res += hex.str();
+    }
+    return res;
+}
+
 void HASH::padding(std::vector<int>& bin) {
     std::string binary_val = std::bitset<8>(bin.size()).to_string();
     std::vector<int> len_bin(64 - binary_val.length(), 0);
