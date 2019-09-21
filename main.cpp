@@ -7,6 +7,6 @@ int main() {
 
     HASH hash_(2);
 
-    std::cout << hash_.hash(st);
+    hash_.hash(st);
     return 0;
 }

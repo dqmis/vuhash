@@ -4,19 +4,34 @@
 
 #include "HASH.h"
 
-void HASH::to_ascii(std::string st) {
-    for(char& c : st)
-        ascii.push_back(int(c));
+void HASH::string_to_binary(std::string st_val) {
+    std::string binary_rep;
+    for(char c: st_val) {
+        binary_rep = std::bitset<8>(int(c)).to_string();
+        for (char b: binary_rep)
+            bin_val.push_back(int(b) - 48);
+    }
 }
 
-void HASH::to_binary() {
-    std::string bin;
-    for(int& i: ascii) {
-        bin = std::bitset<8>(i).to_string();
-        for(char& c: bin)
-            binary.push_back(int(c) - 48);
+void HASH::init_key(std::vector<int>& key) {
+    key.reserve(32);
+    for(int i = 0; i < 4; i++) {
+        std::string bin = std::bitset<8>(std::rand()).to_string();
+        for(char& b: bin)
+            key.push_back(int(b) - 48);
     }
-};
+}
+
+std::string HASH::mul_bites() {
+    std::vector<int> res;
+    res.reserve(512);
+    for(int i = 0; i < 16; i++) {
+        std::transform(keys[i].begin(), keys[i].end(), bin_val.begin() + (i * 32), std::back_inserter(res), std::bit_xor<int>());
+    }
+    std::stringstream result;
+    std::copy(res.begin(), res.end(), std::ostream_iterator<int>(result));
+    return result.str();
+}
 
 void HASH::padding(std::vector<int>& bin) {
     std::string binary_val = std::bitset<8>(bin.size()).to_string();
@@ -31,9 +46,3 @@ void HASH::padding(std::vector<int>& bin) {
     bin.insert(bin.end(), len_bin.begin(), len_bin.end());
 }
 
-int HASH::encoded_sum() {
-    int enc_sum = 0;
-    for(int i = 0; i < ascii.size(); i++)
-       enc_sum += pow(mul_const, i) * ascii[i];
-    return  enc_sum;
-}

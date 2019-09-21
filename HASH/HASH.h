@@ -10,31 +10,38 @@
 #include <cmath>
 #include <bitset>
 #include <iostream>
+#include<cstdlib>
+#include <array>
+#include <algorithm>
+#include <functional>
+#include <sstream>
+#include <iomanip>
 
 class HASH {
 private:
-    int mul_const;
-
-    std::vector<int> binary;
-    std::vector<int> ascii;
-    void to_ascii(std::string sat);
-    void to_binary();
     void padding(std::vector<int>& bin);
-    int encoded_sum();
+    void string_to_binary(std::string st_val);
+    void init_key(std::vector<int>& key);
+    std::string mul_bites();
 
-    std::vector<int> has
+    std::vector<std::vector<int>> keys;
+    std::vector<int> bin_val;
 public:
-    HASH(int mul_const_ = 42) {
-        mul_const = mul_const_;
+    HASH(int rand_const_ = 42) {
+        std::srand(rand_const_);
+        keys.reserve(16);
+        for(int i = 0; i < 16; i++)
+            init_key(keys[i]);
     }
     int hash(const std::string st) {
-        to_ascii(st);
-        to_binary();
-        padding(binary);
-        for(int& a: binary) {
-            std::cout << a;
-        }
-        return encoded_sum();
+        string_to_binary(st);
+        if (bin_val.size() < 512)
+            padding(bin_val);
+        else if (bin_val.size() > 512) return -1;
+
+        std::string b = mul_bites();
+        std::bitset<
+        return 0;
     }
 };
 
