@@ -36,9 +36,9 @@ public:
     }
     int hash(const std::string st) {
         string_to_binary(st);
-        if (bin_val.size() < 512)
+        if (bin_val.size() <= 448)
             padding(bin_val);
-        else if (bin_val.size() > 512) return -1;
+        else if (bin_val.size() > 448) return -1;
         std::cout << string_to_hex(mul_bites()) << std::endl;
         return 0;
     }

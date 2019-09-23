@@ -6,11 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/Users/dqmis/Documents/University/vuhash/HASH/HASH.cpp
-HASH.h
-/Users/dqmis/Documents/University/vuhash/HASH/HASH.h
-
-/Users/dqmis/Documents/University/vuhash/HASH/HASH.h
+/Users/dqmis/Documents/University/vuhash/./HASH/HASH.h
 string
 -
 vector
@@ -33,4 +29,10 @@ sstream
 -
 iomanip
 -
+
+/Users/dqmis/Documents/University/vuhash/main.cpp
+iostream
+-
+./HASH/HASH.h
+/Users/dqmis/Documents/University/vuhash/./HASH/HASH.h
 
