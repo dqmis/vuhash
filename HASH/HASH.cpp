@@ -24,11 +24,11 @@ void HASH::init_key(std::vector<int>& key) {
 
 void HASH::shuffle_bits() {
     int a, b;
-    for (int i = 0; i < 496; i++) {
+    for (int i = 0; i < 504; i++) {
         if(i % 2 == 0) {
-            bin_val[i + 16] = bin_val[i] ^ bin_val[i + 16];
+            bin_val[i + 8] = bin_val[i] ^ bin_val[i + 8];
         } else {
-            bin_val[i] = bin_val[i] | bin_val[i + 16];
+            bin_val[i] = bin_val[i] ^ bin_val[i + 8];
         }
     }
     for(int i = 0; i < 256; i++) {
@@ -47,16 +47,14 @@ std::string HASH::mul_bites() {
     }
     std::stringstream result;
     std::copy(res.begin(), res.end(), std::ostream_iterator<int>(result));
-    std::cout << res.size() << " " << result.str().size() << std::endl;
-    std::cout << result.str() << std::endl;
     return result.str();
 }
 
 std::string HASH::string_to_hex(std::string bin) {
     std::string res = "";
-    for (int i = 0; i < 512; i += 64) {
+    for (int i = 0; i < 512; i += 4) {
         std::stringstream hex;
-        std::bitset<64> set(bin.substr(i, 64));
+        std::bitset<4> set(bin.substr(i, 4));
         hex << std::hex << set.to_ulong();
         res += hex.str();
     }
