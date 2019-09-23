@@ -22,6 +22,23 @@ void HASH::init_key(std::vector<int>& key) {
     }
 }
 
+void HASH::shuffle_bits() {
+    int a, b;
+    for (int i = 0; i < 496; i++) {
+        if(i % 2 == 0) {
+            bin_val[i + 16] = bin_val[i] ^ bin_val[i + 16];
+        } else {
+            bin_val[i] = bin_val[i] | bin_val[i + 16];
+        }
+    }
+    for(int i = 0; i < 256; i++) {
+        a = bin_val[i];
+        b = bin_val[512 - i - 1];
+        bin_val[i] = a ^ b;
+        bin_val[512 - i - 1] = a | b;
+    }
+}
+
 std::string HASH::mul_bites() {
     std::vector<int> res;
     res.reserve(512);
@@ -30,6 +47,8 @@ std::string HASH::mul_bites() {
     }
     std::stringstream result;
     std::copy(res.begin(), res.end(), std::ostream_iterator<int>(result));
+    std::cout << res.size() << " " << result.str().size() << std::endl;
+    std::cout << result.str() << std::endl;
     return result.str();
 }
 
