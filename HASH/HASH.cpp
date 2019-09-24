@@ -67,9 +67,11 @@ void HASH::padding(std::vector<int>& bin) {
     for(char& c: binary_val)
         len_bin.push_back(int(c) - 48);
 
-    bin.push_back(1);
-    while(bin.size() != 448)
-        bin.push_back(0);
+    if(bin.size() < 448) {
+        bin.push_back(1);
+        while (bin.size() != 448)
+            bin.push_back(0);
+    }
 
     bin.insert(bin.end(), len_bin.begin(), len_bin.end());
 }
