@@ -10,12 +10,11 @@
 #include <cmath>
 #include <bitset>
 #include <iostream>
-#include<cstdlib>
+#include <cstdlib>
 #include <array>
 #include <algorithm>
 #include <functional>
 #include <sstream>
-#include <iomanip>
 
 class HASH {
 private:
@@ -35,15 +34,19 @@ public:
         for(int i = 0; i < 16; i++)
             init_key(keys[i]);
     }
-    int hash(const std::string st) {
+    std::string hash(const std::string st) {
         string_to_binary(st);
         if (bin_val.size() <= 448)
             padding(bin_val);
-        else if (bin_val.size() > 448) return -1;
+        else if (bin_val.size() > 448){
+            std::cerr << "Input is too long. Max is 56 chars." << std::endl;
+            return "";
+        }
         shuffle_bits();
-        std::cout << string_to_hex(mul_bites()) << std::endl;
-        return 0;
+        return string_to_hex(mul_bites());
     }
 };
+
+std::string vuhash(std::string st);
 
 #endif //VUHASH_HASH_H

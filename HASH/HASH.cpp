@@ -43,7 +43,12 @@ std::string HASH::mul_bites() {
     std::vector<int> res;
     res.reserve(512);
     for(int i = 0; i < 16; i++) {
-        std::transform(keys[i].begin(), keys[i].end(), bin_val.begin() + (i * 32), std::back_inserter(res), std::bit_xor<int>());
+        std::transform(
+                keys[i].begin(),
+                keys[i].end(),
+                bin_val.begin() + (i * 32),
+                std::back_inserter(res),
+                std::bit_xor<int>());
     }
     std::stringstream result;
     std::copy(res.begin(), res.end(), std::ostream_iterator<int>(result));
@@ -66,13 +71,15 @@ void HASH::padding(std::vector<int>& bin) {
     std::vector<int> len_bin(64 - binary_val.length(), 0);
     for(char& c: binary_val)
         len_bin.push_back(int(c) - 48);
-
     if(bin.size() < 448) {
         bin.push_back(1);
         while (bin.size() != 448)
             bin.push_back(0);
     }
-
     bin.insert(bin.end(), len_bin.begin(), len_bin.end());
 }
 
+std::string vuhash(std::string st) {
+    HASH _hash(42);
+    return _hash.hash(st);
+}

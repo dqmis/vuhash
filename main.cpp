@@ -2,8 +2,7 @@
 #include "./HASH/HASH.h"
 
 int main(int argc, char** argv) {
-    HASH hash_(42);
-    hash_.hash(argv[1]);
+    std::cout << vuhash(argv[1]) << std::endl;
 
     return 0;
 }
