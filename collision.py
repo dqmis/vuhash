@@ -1,6 +1,7 @@
 import os
 import string
 import random
+from tqdm import tqdm
 from difflib import SequenceMatcher
 
 def similar(a, b):
@@ -9,7 +10,7 @@ def similar(a, b):
 def main():
     a = 0
     rn = 1000
-    for i in range(0, rn):
+    for i in tqdm(range(1000000)):
         rst = ''.join(random.choices(string.ascii_uppercase + string.digits, k=rn))
         st1 = ''.join(format(ord(x), 'b') for x in os.popen("./vuhash {}".format(rst)).read())
         rs = list(rst)
