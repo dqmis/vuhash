@@ -36,12 +36,8 @@ public:
     }
     std::string hash(const std::string st) {
         string_to_binary(st);
-        if (bin_val.size() <= 448)
-            padding(bin_val);
-        else if (bin_val.size() > 448){
-            std::cerr << "Input is too long. Max is 56 chars." << std::endl;
-            return "";
-        }
+        int chunks;
+        if (!bin_val.size() % 512 == 0) padding(bin_val);
         shuffle_bits();
         return string_to_hex(mul_bites());
     }

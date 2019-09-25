@@ -24,31 +24,37 @@ void HASH::init_key(std::vector<int>& key) {
 
 void HASH::shuffle_bits() {
     int a, b;
-    for (int i = 0; i < 504; i++) {
+    for (int i = 0; i < bin_val.size() - 8; i++) {
         if(i % 2 == 0) {
             bin_val[i + 8] = bin_val[i] ^ bin_val[i + 8];
         } else {
             bin_val[i] = bin_val[i] ^ bin_val[i + 8];
         }
     }
-    for(int i = 0; i < 256; i++) {
+    for(int i = 0; i < bin_val.size() / 2; i++) {
         a = bin_val[i];
-        b = bin_val[512 - i - 1];
+        b = bin_val[bin_val.size() - i - 1];
         bin_val[i] = a ^ b;
-        bin_val[512 - i - 1] = a | b;
+        bin_val[bin_val.size() - i - 1] = a | b;
     }
 }
 
 std::string HASH::mul_bites() {
     std::vector<int> res;
     res.reserve(512);
-    for(int i = 0; i < 16; i++) {
-        std::transform(
-                keys[i].begin(),
-                keys[i].end(),
-                bin_val.begin() + (i * 32),
-                std::back_inserter(res),
-                std::bit_xor<int>());
+
+    for (int c = 0; c < bin_val.size() / 2; c += 512) {
+        for(int i = 0; i < 16; i++) {
+            std::transform(
+                    keys[i].begin(),
+                    keys[i].end(),
+                    bin_val.begin() + c + (i * 32),
+                    std::back_inserter(res),
+                    std::bit_xor<int>());
+        }
+        for (int k = 0; k < 16; k++) {
+            keys[k].assign(res.begin() + k, res.begin() + 16 + k);
+        }
     }
     std::stringstream result;
     std::copy(res.begin(), res.end(), std::ostream_iterator<int>(result));
@@ -69,11 +75,12 @@ std::string HASH::string_to_hex(std::string bin) {
 void HASH::padding(std::vector<int>& bin) {
     std::string binary_val = std::bitset<8>(bin.size()).to_string();
     std::vector<int> len_bin(64 - binary_val.length(), 0);
+    int chunks = 512 * (bin.size() / 512);
     for(char& c: binary_val)
         len_bin.push_back(int(c) - 48);
-    if(bin.size() < 448) {
+    if(bin.size() - chunks < 448) {
         bin.push_back(1);
-        while (bin.size() != 448)
+        while (bin.size() - chunks != 448)
             bin.push_back(0);
     }
     bin.insert(bin.end(), len_bin.begin(), len_bin.end());
