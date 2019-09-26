@@ -6,7 +6,7 @@ This is a repository for VU ISI Blockchain course's [hashing function's](https:/
 
 ### Introduction
 My hasing function is completed in multiple steps:
-* Initializing 16 32bit size key vectors.
+* Initializing 16 `32bit` size key vectors.
 * Converting string or file content parsed to string to ascii.
 * Converting ascii to binary vector.
 * Padding vector so that its size would be divisible by 512.
