@@ -78,6 +78,7 @@ void HASH::padding(std::vector<int>& bin) {
     int chunks = 512 * (bin.size() / 512);
     for(char& c: binary_val)
         len_bin.push_back(int(c) - 48);
+    bin.reserve(((bin.size() / 512) + 1) * 512);
     if(bin.size() - chunks < 448) {
         bin.push_back(1);
         while (bin.size() - chunks != 448)

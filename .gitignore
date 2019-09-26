@@ -1,1 +1,6 @@
 cmake-build-debug/
+vuhash
+build/
+analysis/__pycache__/
+
+!build/.gitkeep

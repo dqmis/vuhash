@@ -31,12 +31,14 @@ public:
     HASH(int rand_const_ = 42) {
         std::srand(rand_const_);
         keys.reserve(16);
-        for(int i = 0; i < 16; i++)
-            init_key(keys[i]);
+        for(int i = 0; i < 16; i++) {
+            std::vector<int> key;
+            init_key(key);
+            keys.push_back(key);
+        }
     }
     std::string hash(const std::string st) {
         string_to_binary(st);
-        int chunks;
         if (!bin_val.size() % 512 == 0) padding(bin_val);
         shuffle_bits();
         return string_to_hex(mul_bites());
