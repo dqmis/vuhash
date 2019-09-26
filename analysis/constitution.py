@@ -5,6 +5,7 @@ from tqdm import tqdm
 from difflib import SequenceMatcher
 from hashlib import sha256
 import vuhash
+import sys
 
 def similar(a, b):
     return SequenceMatcher(None, a, b).ratio()
@@ -15,8 +16,10 @@ def main():
         cnt = 0
         for line in fp:
             start = time()
-            hash_ = vuhash.hash(line.strip())
-            #hash_ = sha256(line.strip().encode('utf-8')).hexdigest()
+            if len(sys.argv) > 1:
+                hash_ = vuhash.hash(line.strip(), sys.argv[1])
+            else:
+                hash_ = vuhash.hash(line.strip())
             all_time += (time() - start)
             cnt += 1
 
