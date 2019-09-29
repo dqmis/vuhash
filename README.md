@@ -17,6 +17,36 @@ My hasing function is completed in multiple steps:
 ### Analysis
 I am analysing my hash with `python3`. I believe that it is a really easy way to combine performace of C++ and versatility of Python. You can find out more about them in the file structure definition below.
 
+### Analysis results
+#### Constitution
+* Average time to hash a line: `0.0051`s.
+* Time to hash file line by line: `4.11`s.
+#### Word collision
+* Time it took: `18`min.
+* Average similarity score: `0.0055`
+* Found `0` collisions
+#### Letter collision
+* Time it took: `19`min.
+* Average similarity score: `0.0054`
+* Found `0` collisions
+### My hashing algorithm vs `SHA256`
+I made every test with my algorithm and `sha256`. Below are the results of `sha256`:
+#### Constitution
+* Average time to hash a line: `2.24e-06`s.
+* Time to hash file line by line: `0.002`s.
+#### Word collision
+* Time it took: `55`s.
+* Average similarity score: `0.0095`
+* Found `0` collisions
+#### Letter collision
+* Time it took: `57`s.
+* Average similarity score: `0.0096`
+* Found `0` collisions
+
+You can see that `sha256` is about 22 times faster than mine algorithm when hasing short strings. When hashing strings that are as long as 100000 chars the results are different:
+
+* Letter collision test gives `41`it/s and mine algorithms gives `3.1`it/s. That is a `13x` difference.
+
 ### File structure
 * `HASH/` - place where C++ hashing function code is held.
 * `analysis/`:

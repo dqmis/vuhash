@@ -12,6 +12,7 @@ def similar(a, b):
 
 def main():
     all_time = 0
+    start_time = time()
     with open("./konstitucija.txt") as fp:
         cnt = 0
         for line in fp:
@@ -24,6 +25,7 @@ def main():
             cnt += 1
 
     print("Average hashing time: {}".format(all_time / cnt))
+    print("Time to hash: {}".format(time() - start_time))
 
 
 if __name__ == "__main__":

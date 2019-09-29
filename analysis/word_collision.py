@@ -13,7 +13,8 @@ def get_word(rn):
 
 def main():
     similar_avg = 0
-    rn = 10000
+    rn = 5
+    coll_ = 0
     for i in tqdm(range(100000)):
         if len(sys.argv) > 1:
             st1 = ''.join(format(ord(x), 'b') for x in vuhash.hash(get_word(rn), sys.argv[1]))
@@ -22,9 +23,10 @@ def main():
             st1 = ''.join(format(ord(x), 'b') for x in vuhash.hash(get_word(rn)))
             st2 = ''.join(format(ord(x), 'b') for x in vuhash.hash(get_word(rn)))
         if similar(st1, st2) == 1:
-            print("collision")
+            coll_ += 1
         similar_avg += similar(st1, st2)
     print(similar_avg / 100000)
+    print('Found {} collisions'.format(coll_))
 
 if __name__ == "__main__":
     main()
